@@ -1,7 +1,11 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const Cursor = () => {
+const Background = () => {
+  const pathName = usePathname();
+  const isEditPage = pathName === "/edit";
+
   useEffect(() => {
     const moveBlob = (event: MouseEvent) => {
       const blob = document.getElementById("blob-container");
@@ -27,17 +31,19 @@ const Cursor = () => {
       <div id="blob-container" className="relative pointer-events-none">
         <div className="w-44 h-44 rounded-full bg-lime-500 blur-3xl absolute transform -translate-x-1/2 -translate-y-1/2 filter bg-blend-multiply"></div>
       </div>
-      <div className="custom-pointer" />
-      <div
-        className="fixed inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, #292524 10px, transparent 80px ), linear-gradient(to right, #292524 10px, transparent 80px)",
-          backgroundSize: "100px 100px",
-        }}
-      ></div>
+      {!isEditPage && (
+        <div
+          id="background"
+          className="fixed inset-0 z-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to top,transparent 5px, #0c0a09 65px ), linear-gradient(to left, transparent 5px,#0c0a09 65px )",
+            backgroundSize: "100px 100px ",
+          }}
+        />
+      )}
     </div>
   );
 };
 
-export default Cursor;
+export default Background;

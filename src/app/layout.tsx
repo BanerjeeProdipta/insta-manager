@@ -3,9 +3,8 @@ import { Inter, Geologica } from "next/font/google";
 import Providers from "@/providers";
 import "./globals.css";
 
-import PhotoGrid from "@/components/PhotoGrid";
-import Cursor from "@/components/Cursor";
-import Navbar from "@/components/Navbar";
+import PhotoGrid from "@/components/VerticalPhotoLoopAnimation";
+import BackgroundLayout from "@/components/BackgroundLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 const geologica = Geologica({ subsets: ["latin"] });
@@ -24,17 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${geologica.className}`}>
         <div className="min-h-screen bg-stone-900 prose-headings:font-mono overflow-hidden prose-headings:text-lime-400  selection:bg-lime-300 selection:text-lime-900 text-white prose-headings:font-medium">
-          {/* <Navbar /> */}
-          <Cursor />
+          <BackgroundLayout />
 
-          <div className="relative flex z-10 mx-auto justify-center flex-col lg:flex-row space-x-8 container max-w-4xl items-center w-full">
-            <div className="h-96 lg:h-screen overflow-hidden lg:max-w-lg w-full dark:bg-gray-800 dark:text-white">
-              <PhotoGrid />
-            </div>
-            <div className="min-h-screen">
-              <Providers>{children}</Providers>
-            </div>
-          </div>
+          <Providers>{children}</Providers>
         </div>
       </body>
     </html>

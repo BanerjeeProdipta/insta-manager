@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const imagesArr = ["/1.jpg", "/2.jpg", "/3.jpg", "/4.jpg", "/5.jpg", "/6.jpg"];
 
-const PhotoGrid: React.FC = () => {
+const VerticalPhotoLoopAnimation: React.FC = () => {
   const boxHeight = 400;
   const container = useRef<HTMLDivElement>(null);
 
@@ -96,7 +96,7 @@ const PhotoGrid: React.FC = () => {
   return (
     <div
       ref={container}
-      className="w-full relative  flex flex-col items-center justify-center "
+      className="w-full relative -top-96 flex flex-col items-center justify-center h-96 lg:h-screen lg:max-w-lg"
     >
       {imagesArr.map((image, index) => (
         <Image
@@ -106,7 +106,7 @@ const PhotoGrid: React.FC = () => {
           alt={`Image ${index}`}
           width={260}
           height={400}
-          className="img grayscale absolute hover:grayscale-0 transition-all hover:bg-secondary duration-300 py-1"
+          className="img grayscale absolute hover:grayscale-0 transition-all hover:bg-lime-500 duration-300 py-1"
           style={{ height: `${boxHeight}px` }}
         />
       ))}
@@ -114,4 +114,4 @@ const PhotoGrid: React.FC = () => {
   );
 };
 
-export default PhotoGrid;
+export default VerticalPhotoLoopAnimation;
