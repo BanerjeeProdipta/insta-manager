@@ -28,9 +28,6 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
       containerElem.appendChild(clone);
     });
 
-    const imgs = containerElem.querySelectorAll(".img");
-    console.log(imgs);
-
     const animationTimeline = gsap.to(containerElem, {
       duration: 30,
       y: `-=${totalHeight}`,
@@ -96,7 +93,7 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
   return (
     <div
       ref={container}
-      className="w-full relative -top-96 flex flex-col items-center justify-center h-96 lg:h-screen lg:max-w-lg"
+      className="w-full relative -top-40 flex flex-col items-center justify-center h-96 lg:h-screen lg:max-w-lg"
     >
       {imagesArr.map((image, index) => (
         <Image
