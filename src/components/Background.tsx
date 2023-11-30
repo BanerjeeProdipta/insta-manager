@@ -68,8 +68,6 @@ const Background = () => {
     }
   }, [hoveredImageIndex]);
 
-  console.log({ hoveredImageIndex });
-
   if (isClient)
     return (
       <div>

@@ -14,8 +14,6 @@ const PhotoGrid: React.FC = () => {
     containerHeight / (numberOfBoxes * boxHeight)
   );
 
-  console.log({ containerHeight });
-
   while (imagesArr.length < numberOfBoxesToFitScreen) {
     imagesArr.push(...imagesArr);
   }
