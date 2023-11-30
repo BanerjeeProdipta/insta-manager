@@ -84,7 +84,7 @@ const Background = () => {
         />
 
         <div
-          className="absolute z-0 inset-0 bg-contain bg-no-repeat"
+          className="absolute z-0 lg:block hidden inset-0 bg-contain bg-no-repeat"
           style={{
             backgroundImage: `url(/resized/${
               (hoveredImageIndex || 0) + 1
