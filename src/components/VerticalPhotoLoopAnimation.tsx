@@ -1,41 +1,50 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import { useAtom } from "jotai";
+import { hoveredImageAtom } from "@/app/atoms";
 
 const VerticalPhotoLoopAnimation: React.FC = () => {
+  const animationRef = useRef<gsap.core.Timeline>();
+  const [, setHoveredImageIndex] = useAtom(hoveredImageAtom);
+
   useEffect(() => {
     const startAnim = () => {
       const pictures = document.querySelectorAll<HTMLDivElement>(".picture");
       const totalHeight =
         document.querySelector<HTMLDivElement>(".pictures")?.offsetHeight || 0;
 
+      // Create a single timeline to handle all animations
+      animationRef.current = gsap.timeline({
+        repeat: -1,
+        defaults: { ease: "none", duration: 15 },
+      });
+
       pictures.forEach(function (picture) {
         const pictureHeight = picture.offsetHeight;
         const pictureOffset = picture.offsetTop;
         const pictureDistance = pictureHeight + pictureOffset;
 
-        const tl = gsap.timeline({
-          repeat: -1,
-          defaults: { ease: "none", duration: 15 },
-        });
-        tl.to(
-          picture,
-          {
-            y: `-=${totalHeight}`,
-            modifiers: {
-              y: function (y) {
-                y = parseFloat(y);
-                if (y < -pictureDistance) {
-                  y += totalHeight;
-                }
-                return y + "px";
+        if (animationRef.current)
+          // Add animations to the main timeline for each picture
+          animationRef.current.to(
+            picture,
+            {
+              y: `-=${totalHeight}`,
+              modifiers: {
+                y: function (y) {
+                  y = parseFloat(y);
+                  if (y < -pictureDistance) {
+                    y += totalHeight;
+                  }
+                  return y + "px";
+                },
               },
             },
-          },
-          0
-        );
+            0
+          );
       });
     };
 
@@ -56,29 +65,57 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
         startAnim();
       }
     }
+
+    return () => {
+      // Clean up the animation when the component unmounts
+      if (animationRef.current) {
+        animationRef.current.kill();
+      }
+    };
   }, []);
 
-  return (
-    <div className="wrapper w-full h-96 flex flex-col justify-center items-center lg:h-screen overflow-hidden">
-      <div className="pictures">
-        {[...Array(6)].map((item, index) => (
-          <Image
-            key={index}
-            width={180}
-            height={320}
-            alt="random img"
-            className="picture grayscale hover:grayscale-0 transition-colors duration-150"
-            id="picture1"
-            src={`/resized/${index + 1}.jpg`}
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
-          />
-        ))}
+  const handleMouseEnter = () => {
+    if (animationRef.current) {
+      animationRef.current.pause();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (animationRef.current) {
+      animationRef.current.play();
+    }
+  };
+
+  if (animationRef)
+    return (
+      <div
+        className="wrapper w-full h-96 flex flex-col justify-center items-center lg:h-screen overflow-hidden"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="pictures">
+          {[...Array(6)].map((item, index) => (
+            <Image
+              key={index}
+              width={140}
+              height={240}
+              alt="random img"
+              onMouseEnter={() => setHoveredImageIndex(index)}
+              onMouseLeave={() => setHoveredImageIndex(null)}
+              className="picture static z-10 grayscale hover:grayscale-0 drop-shadow-lg transition-colors duration-150"
+              id={`picture${index}`}
+              src={`/resized/${index + 1}.jpg`}
+              style={{
+                width: "auto",
+                height: "auto",
+              }}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+
+  return <></>;
 };
 
 export default VerticalPhotoLoopAnimation;

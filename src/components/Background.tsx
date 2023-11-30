@@ -1,11 +1,15 @@
 "use client";
+import { hoveredImageAtom } from "@/app/atoms";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { gsap } from "gsap";
 
 const Background = () => {
   const [isClient, setIsClient] = useState(false);
+  const [hoveredImageIndex] = useAtom(hoveredImageAtom);
 
   useEffect(() => {
-    setIsClient(true); // Set isClient to true when component mounts on the client side
+    setIsClient(true);
   }, []);
 
   useEffect(() => {
@@ -28,9 +32,45 @@ const Background = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const backgroundImage = document.querySelector(".bg-contain");
+
+    if (hoveredImageIndex !== null) {
+      gsap.fromTo(
+        backgroundImage,
+        {
+          backgroundPosition: "-100%",
+          opacity: 0,
+          x: -400,
+        },
+        {
+          duration: 0.5,
+          backgroundPosition: "center",
+          opacity: 1,
+          x: -500,
+        }
+      );
+    } else {
+      gsap.fromTo(
+        backgroundImage,
+        {
+          backgroundPosition: "center",
+          opacity: 1,
+          x: -500,
+        },
+        {
+          duration: 0.5,
+          backgroundPosition: "-100%",
+          opacity: 0,
+          x: -400,
+        }
+      );
+    }
+  }, [hoveredImageIndex]);
+
   if (isClient)
     return (
-      <div className="cursor">
+      <div>
         <div id="blob-container" className="relative pointer-events-none">
           <div className="w-44 h-44 rounded-full bg-lime-500 blur-3xl absolute transform -translate-x-1/2 -translate-y-1/2 filter bg-blend-multiply"></div>
         </div>
@@ -42,6 +82,15 @@ const Background = () => {
             backgroundSize: "100px 100px ",
           }}
         />
+
+        <div
+          className="absolute z-0 inset-0 bg-contain bg-no-repeat"
+          style={{
+            backgroundImage: `url(/resized/${
+              (hoveredImageIndex || 0) + 1
+            }.jpg)`,
+          }}
+        ></div>
       </div>
     );
 

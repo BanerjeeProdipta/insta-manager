@@ -3,7 +3,6 @@ import { Inter, Geologica } from "next/font/google";
 import Providers from "@/providers";
 import "./globals.css";
 
-import PhotoGrid from "@/components/VerticalPhotoLoopAnimation";
 import BackgroundLayout from "@/components/BackgroundLayout";
 
 const inter = Inter({ subsets: ["latin"] });
