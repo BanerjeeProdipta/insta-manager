@@ -1,7 +1,13 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Background = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Set isClient to true when component mounts on the client side
+  }, []);
+
   useEffect(() => {
     const moveBlob = (event: MouseEvent) => {
       const blob = document.getElementById("blob-container");
@@ -10,7 +16,7 @@ const Background = () => {
       const mouseX = event.clientX;
       const mouseY = event.clientY;
 
-      blob.style.transition = "left 0.2s ease-out, top 0.2s ease-out";
+      blob.style.transition = "left 0.1s ease-out, top 0.1s ease-out";
       blob.style.left = mouseX + "px";
       blob.style.top = mouseY + "px";
     };
@@ -22,21 +28,24 @@ const Background = () => {
     };
   }, []);
 
-  return (
-    <div className="cursor">
-      <div id="blob-container" className="relative pointer-events-none">
-        <div className="w-44 h-44 rounded-full bg-lime-500 blur-3xl absolute transform -translate-x-1/2 -translate-y-1/2 filter bg-blend-multiply"></div>
+  if (isClient)
+    return (
+      <div className="cursor">
+        <div id="blob-container" className="relative pointer-events-none">
+          <div className="w-44 h-44 rounded-full bg-lime-500 blur-3xl absolute transform -translate-x-1/2 -translate-y-1/2 filter bg-blend-multiply"></div>
+        </div>
+        <div
+          className="fixed inset-0 z-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to top,transparent 5px, #0c0a09 65px ), linear-gradient(to left, transparent 5px,#0c0a09 65px )",
+            backgroundSize: "100px 100px ",
+          }}
+        />
       </div>
-      <div
-        className="fixed inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to top,transparent 5px, #0c0a09 65px ), linear-gradient(to left, transparent 5px,#0c0a09 65px )",
-          backgroundSize: "100px 100px ",
-        }}
-      />
-    </div>
-  );
+    );
+
+  return <></>;
 };
 
 export default Background;

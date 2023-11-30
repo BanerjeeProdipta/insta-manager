@@ -4,10 +4,10 @@ import VerticalPhotoLoopAnimation from "@/components/VerticalPhotoLoopAnimation"
 
 function LandingPage() {
   return (
-    <div className="relative flex z-10 mx-auto justify-center flex-col md:flex-row container max-w-4xl items-center w-full">
+    <div className="flex mx-auto justify-center flex-col md:flex-row container max-w-4xl items-center w-full selection:bg-lime-300 selection:text-lime-900 ">
       <VerticalPhotoLoopAnimation />
 
-      <div className="space-y-12 relative px-6 bg-stone-800/80 md:bg-transparent py-12 flex lg:h-screen lg:max-h-[50rem] flex-col">
+      <div className="space-y-12  px-6 bg-stone-800/80 md:bg-transparent py-12 flex lg:h-screen lg:max-h-[50rem] flex-col">
         <div className="space-y-2">
           <h2>Welcome to Our World</h2>
           <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl leading-loose tracking-wide">
