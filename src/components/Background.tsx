@@ -68,6 +68,8 @@ const Background = () => {
     }
   }, [hoveredImageIndex]);
 
+  console.log({ hoveredImageIndex });
+
   if (isClient)
     return (
       <div>
@@ -82,15 +84,14 @@ const Background = () => {
             backgroundSize: "100px 100px ",
           }}
         />
-
-        <div
-          className="absolute z-0 lg:block hidden inset-0 bg-contain bg-no-repeat"
-          style={{
-            backgroundImage: `url(/resized/${
-              (hoveredImageIndex || 0) + 1
-            }.jpg)`,
-          }}
-        ></div>
+        {hoveredImageIndex && (
+          <div
+            className="absolute z-0 lg:block hidden inset-0 bg-contain bg-no-repeat"
+            style={{
+              backgroundImage: `url(/resized/${hoveredImageIndex}.jpg)`,
+            }}
+          ></div>
+        )}
       </div>
     );
 

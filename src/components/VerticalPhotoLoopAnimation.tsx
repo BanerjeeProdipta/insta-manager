@@ -7,7 +7,7 @@ import { hoveredImageAtom } from "@/app/atoms";
 
 const VerticalPhotoLoopAnimation: React.FC = () => {
   const animationRef = useRef<gsap.core.Timeline>();
-  const [, setHoveredImageIndex] = useAtom(hoveredImageAtom);
+  const [, setHoveredImageId] = useAtom(hoveredImageAtom);
 
   useEffect(() => {
     const startAnim = () => {
@@ -99,8 +99,8 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
               width={140}
               height={240}
               alt="random img"
-              onMouseEnter={() => setHoveredImageIndex(index)}
-              onMouseLeave={() => setHoveredImageIndex(null)}
+              onMouseEnter={() => setHoveredImageId(index + 1)}
+              onMouseLeave={() => setHoveredImageId(null)}
               className="picture static z-10 grayscale hover:grayscale-0 drop-shadow-lg transition-colors duration-150"
               id={`picture${index}`}
               src={`/resized/${index + 1}.jpg`}
