@@ -11,8 +11,6 @@ const Followers = () => {
 
   const data = useGetAll();
 
-  console.log(data);
-
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-2 mb-8">

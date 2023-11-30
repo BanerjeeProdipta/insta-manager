@@ -19,7 +19,6 @@ const BackgroundEditor = () => {
 
   const handleInputChange = (e: any) => {
     setGradientValue(e.target.value);
-    console.log(space);
     const backgroundSizeValue = space.split(" ").join("px ") + "px";
 
     const editorElement = document.getElementById("editor");
