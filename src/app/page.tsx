@@ -1,36 +1,56 @@
 "use client";
+import { useRef, useLayoutEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { NextPage } from "next";
+import Hero from "@/components/sections/Hero";
+import Gallery from "@/components/sections/Gallery";
 
-import VerticalPhotoLoopAnimation from "@/components/VerticalPhotoLoopAnimation";
+gsap.registerPlugin(ScrollTrigger);
 
-function LandingPage() {
+const Home: NextPage = () => {
+  const mainRef = useRef<HTMLDivElement>(null);
+  const verticalScrollRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const firstVerticalContext = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".first",
+        start: "top top",
+        endTrigger: ".divD",
+        end: "bottom bottom",
+        snap: {
+          snapTo: 1 / 3,
+          duration: { min: 0.25, max: 0.75 },
+          delay: 0.125,
+          ease: "power1.inOut",
+        },
+      },
+    });
+
+    return () => {
+      firstVerticalContext.revert();
+    };
+  }, []);
+
   return (
-    <div className="flex mx-auto justify-center flex-col md:flex-row container max-w-4xl items-center w-full selection:bg-lime-300 selection:text-lime-900 ">
-      <VerticalPhotoLoopAnimation />
-
-      <div className="space-y-12  px-6 bg-stone-800/80 md:bg-transparent py-12 flex lg:h-screen lg:max-h-[50rem] flex-col">
-        <div className="space-y-2">
-          <h2>Welcome to Our World</h2>
-          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl leading-loose tracking-wide">
-            Explore the Extraordinary, Experience the Unforgettable.
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          <h2>Discover Adventure</h2>
-          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl leading-loose tracking-wide">
-            Embark on thrilling journeys and create unforgettable memories.
-          </p>
-        </div>
-
-        <div className="space-y-2">
-          <h2>Join Our Community</h2>
-          <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl leading-loose tracking-wide">
-            Connect with like-minded adventurers and share your experiences.
-          </p>
-        </div>
+    <main ref={mainRef}>
+      <div className="relative" ref={verticalScrollRef}>
+        <section className="h-screen text-2xl flex justify-center items-center first">
+          <Hero />
+        </section>
+        <section className="h-screen text-2xl flex justify-center items-center ">
+          <Gallery />
+        </section>
+        <section className="h-screen text-2xl flex justify-center items-center ">
+          C
+        </section>
       </div>
-    </div>
+      <div className="h-screen text-2xl flex justify-center items-center last">
+        D
+      </div>
+    </main>
   );
-}
+};
 
-export default LandingPage;
+export default Home;

@@ -70,8 +70,8 @@ const Background = () => {
 
   if (isClient)
     return (
-      <div>
-        <div id="blob-container" className="relative pointer-events-none">
+      <div className="relative">
+        <div id="blob-container" className="fixed pointer-events-none">
           <div className="w-44 h-44 rounded-full bg-lime-500 blur-3xl absolute transform -translate-x-1/2 -translate-y-1/2 filter bg-blend-multiply"></div>
         </div>
         <div
@@ -84,7 +84,7 @@ const Background = () => {
         />
         {hoveredImageIndex && (
           <div
-            className="absolute z-0 lg:block hidden inset-0 bg-contain bg-no-repeat"
+            className="fixed z-0 lg:block hidden inset-0 bg-contain bg-no-repeat"
             style={{
               backgroundImage: `url(/resized/${hoveredImageIndex}.jpg)`,
             }}

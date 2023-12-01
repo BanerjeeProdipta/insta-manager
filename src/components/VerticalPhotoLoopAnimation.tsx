@@ -10,8 +10,9 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
   const [, setHoveredImageId] = useAtom(hoveredImageAtom);
 
   useEffect(() => {
+    const pictures = document.querySelectorAll<HTMLImageElement>(".picture");
+
     const startAnim = () => {
-      const pictures = document.querySelectorAll<HTMLDivElement>(".picture");
       const totalHeight =
         document.querySelector<HTMLDivElement>(".pictures")?.offsetHeight || 0;
 
@@ -46,8 +47,6 @@ const VerticalPhotoLoopAnimation: React.FC = () => {
           );
       });
     };
-
-    const pictures = document.querySelectorAll<HTMLImageElement>(".picture");
 
     let counter = 0;
     pictures.forEach(function (picture) {
