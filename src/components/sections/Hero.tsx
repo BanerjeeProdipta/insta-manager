@@ -1,28 +1,22 @@
-// Hero.jsx
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 
 const Hero = () => {
-  useEffect(() => {
-    const text = gsap.getById("hero");
-
-    if (text) {
-      gsap.from(text, {
-        opacity: 0,
-        x: -50,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }
-  }, []);
+  const textRef = useRef<HTMLHeadingElement>(null);
 
   return (
-    <div
-      id="hero"
-      className="whitespace-nowrap max-w-xl text-6xl font-bold text-white"
-    >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et urna
-      eu risus dapibus fringilla.
+    <div className="whitespace-nowrap w-full text-6xl font-bold text-white">
+      <h1 id="hero" ref={textRef} className="text-center">
+        Prodipta Banerjee
+        <br />
+        <span className="text-lg font-normal">
+          Software Engineer [Frontend]
+        </span>
+        <br />
+        <span className="text-sm font-light">
+          Crafting delightful web experiences with passion and precision.
+        </span>
+      </h1>
     </div>
   );
 };

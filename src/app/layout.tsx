@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${geologica.className}`}>
         <div className="min-h-screen bg-stone-900 prose-headings:font-mono overflow-hidden prose-headings:text-lime-400 text-white prose-headings:font-medium">
           <BackgroundLayout />
-          <div className="relative z-10 selection:bg-lime-300 selection:text-lime-900 ">
+          <div className="relative z-10 selection:bg-lime-300 w-full flex flex-col items-center justify-center selection:text-lime-900 px-12">
             <Providers>{children}</Providers>
           </div>
         </div>
